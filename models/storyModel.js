@@ -2,7 +2,8 @@ const Sequelize = require("sequelize");
 module.exports = (sequelize)=>{
     const story = sequelize.define("story",{
         id : {
-            type : Sequelize.STRING,
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
             primaryKey : true
         },
         title :{
