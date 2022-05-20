@@ -10,6 +10,7 @@ exports.createUser = (req, res) => {
   }
   const newUser = {
     //id: req.body.id,
+     // just another comment 
     name: req.body.name,
     email : req.body.email,
     password : req.body.password
