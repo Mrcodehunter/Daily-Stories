@@ -6,6 +6,7 @@ const db = require("./models/server")
 db.sequelize.sync();
 console.log("The table for the User model was just (re)created!");
 require("./routes/storyRoutes")(app);
+require("./routes/userRoutes")(app);
 //const stories = JSON.parse(fs.readFileSync(`${__dirname}/data/stories.json`));
 
 const port = 3000;
