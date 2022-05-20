@@ -7,6 +7,13 @@ module.exports = (sequelize)=>{
         },
         name :{
             type : Sequelize.STRING
+        },
+        email: {
+            type: Sequelize.STRING,
+            validate: { isEmail: true },
+          },
+        password : {
+            type : Sequelize.STRING
         }
         
     });

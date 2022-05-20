@@ -10,6 +10,9 @@ module.exports = (sequelize)=>{
         },
         description :{
             type : Sequelize.STRING
+        },
+        author:{
+            type: Sequelize.STRING
         }
     });
     return story;
