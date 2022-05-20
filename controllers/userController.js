@@ -1,20 +1,18 @@
-//const { stories } = require("../models/server");
 const db = require("../models/server");
-const Story = db.stories;
+const User = db.users;
 
-exports.createStory = (req, res) => {
+exports.createUser = (req, res) => {
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
-  const newStory = {
+  const newUser = {
     id: req.body.id,
-    title: req.body.title,
-    description: req.body.description,
+    name: req.body.name
   };
-  Story.create(newStory)
+  User.create(newUser)
     .then((data) => {
       res.status(201).send(data);
     })
@@ -25,8 +23,8 @@ exports.createStory = (req, res) => {
     });
 };
 
-exports.getAllStory = (req, res) => {
-  Story.findAll()
+exports.getAllUser = (req, res) => {
+  User.findAll()
     .then((data) => {
       res.status(200).send(data);
     })
@@ -37,8 +35,8 @@ exports.getAllStory = (req, res) => {
     });
 };
 
-exports.getStory = (req, res) => {
-  Story.findAll({ where: { id: req.params.id } })
+exports.getUser = (req, res) => {
+  User.findAll({ where: { id: req.params.id } })
     .then((data) => {
       res.status(200).send(data);
     })
@@ -49,9 +47,9 @@ exports.getStory = (req, res) => {
     });
 };
 
-exports.updateStory = (req, res) => {
+exports.updateUser = (req, res) => {
   const id = req.params.id;
-  Story
+  User
     .update(req.body, {
       where: { id: id },
     })
@@ -67,9 +65,9 @@ exports.updateStory = (req, res) => {
     });
 };
 
-exports.deleteStory = (req, res) => {
+exports.deleteUser = (req, res) => {
   const id = req.params.id;
-  Story
+  User
     .destroy({
       where: { id: id },
     })
