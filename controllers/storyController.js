@@ -13,6 +13,7 @@ exports.createStory = (req, res) => {
     id: req.body.id,
     title: req.body.title,
     description: req.body.description,
+    author : req.body.author
   };
   Story.create(newStory)
     .then((data) => {
