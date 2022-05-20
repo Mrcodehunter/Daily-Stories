@@ -1,0 +1,14 @@
+const stories = require("../controllers/storyController.js");
+var router = require("express").Router();
+module.exports = app => {
+
+  router.post("/", stories.createStory);
+  router.get("/", stories.getAllStory);
+  router.get("/:id", stories.getStory);
+  router.patch("/:id", stories.updateStory);
+  router.delete("/:id", stories.deleteStory);
+  app.use('/api/v1/stories', router);
+
+ };
+
+
