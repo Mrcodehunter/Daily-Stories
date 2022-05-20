@@ -9,7 +9,7 @@ exports.createUser = (req, res) => {
     return;
   }
   const newUser = {
-    id: req.body.id,
+    //id: req.body.id,
     name: req.body.name,
     email : req.body.email,
     password : req.body.password
