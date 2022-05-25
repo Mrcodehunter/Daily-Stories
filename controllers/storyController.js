@@ -1,5 +1,4 @@
-//const { stories } = require("../models/server");
-const db = require("../models/server");
+const db = require("../database/mysql");
 const Story = db.stories;
 
 exports.createStory = (req, res) => {
@@ -10,7 +9,7 @@ exports.createStory = (req, res) => {
     return;
   }
   const newStory = {
-    id: req.body.id,
+   // id: req.body.id,
     title: req.body.title,
     description: req.body.description,
     author : req.body.author

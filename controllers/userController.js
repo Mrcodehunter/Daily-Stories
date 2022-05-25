@@ -1,4 +1,4 @@
-const db = require("../models/server");
+const db = require("../database/mysql");
 const User = db.users;
 
 exports.createUser = (req, res) => {
