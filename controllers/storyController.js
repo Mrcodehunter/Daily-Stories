@@ -1,7 +1,5 @@
-//const { stories } = require("../models/server");
 const db = require("../models/server");
-const Story = db.stories;
-
+const Story = require("../models/storyModel");
 exports.createStory = (req, res) => {
   if (!req.body) {
     res.status(400).send({

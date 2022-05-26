@@ -3,7 +3,7 @@ const app = express();
 //const fs = require("fs");
 app.use(express.json());
 const db = require("./models/server")
-db.sequelize.sync();
+db.sync();
 console.log("The table for the User model was just (re)created!");
 require("./routes/storyRoutes")(app);
 require("./routes/userRoutes")(app);
