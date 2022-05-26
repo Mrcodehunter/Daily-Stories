@@ -1,6 +1,5 @@
 const db = require("../models/server");
-const User = db.users;
-
+const User = require("../models/userModel");
 exports.createUser = (req, res) => {
   if (!req.body) {
     res.status(400).send({
