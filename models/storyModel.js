@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("./server");
+const db = require("../database/mysql");
 const story = db.define("story", {
   id: {
     type: Sequelize.INTEGER,

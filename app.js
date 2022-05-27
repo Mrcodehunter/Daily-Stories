@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 //const fs = require("fs");
 app.use(express.json());
-const db = require("./models/server")
+const db = require("./database/mysql");
 db.sync();
 console.log("The table for the User model was just (re)created!");
 require("./routes/storyRoutes")(app);

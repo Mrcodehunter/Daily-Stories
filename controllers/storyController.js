@@ -1,4 +1,4 @@
-const db = require("../models/server");
+const db = require("../database/mysql");
 const Story = require("../models/storyModel");
 exports.createStory = (req, res) => {
   if (!req.body) {
