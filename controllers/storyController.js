@@ -1,5 +1,6 @@
-const db = require("../database/mysql");
-const Story = require("../models/storyModel");
+const object=require("../dao/storyDao");
+const db=object.dbObject.db;
+const Story = object.dbObject.storyTable;
 exports.createStory = (req, res) => {
   if (!req.body) {
     res.status(400).send({

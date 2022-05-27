@@ -17,8 +17,7 @@ class Mysql {
     })();
   }
 
-
-  createTable(tableName) {
+  createStoryTable(tableName) {
     const newTable = this.db.define(tableName, {
       id: {
         type: Sequelize.INTEGER,
@@ -35,6 +34,28 @@ class Mysql {
         type: Sequelize.STRING,
       },
     });
+    return newTable;
+  }
+
+  createUserTable(tableName) {
+    const newTable = this.db.define(tableName, {
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: Sequelize.STRING,
+      },
+      email: {
+        type: Sequelize.STRING,
+        validate: { isEmail: true },
+      },
+      password: {
+        type: Sequelize.STRING,
+      },
+    });
+
     return newTable;
   }
 }

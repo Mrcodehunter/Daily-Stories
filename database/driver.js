@@ -7,10 +7,10 @@ class Driver{
     //    this.db.sync();
     // }
     createStoryTable(tableName) {
-        this.dbObject.storyTable = this.dbObject.createTable(tableName);
+        this.dbObject.storyTable = this.dbObject.createStoryTable(tableName);
      }
      createUserTable(tableName) {
-        this.dbObject.userTable = this.dbObject.createTable(tableName);
+        this.dbObject.userTable = this.dbObject.createUserTable(tableName);
      }
 }
 
