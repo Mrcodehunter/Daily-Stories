@@ -1,5 +1,10 @@
-const db = require("../database/mysql");
-const User = require("../models/userModel");
+//const db = require("../database/mysql");
+//const User = require("../models/userModel");
+
+const object=require("../dao/storyDao");
+const db=object.dbObject.db;
+const User = object.dbObject.userTable;
+
 exports.createUser = (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -7,9 +12,11 @@ exports.createUser = (req, res) => {
     });
     return;
   }
+  console.log(req.body);
   const newUser = {
     //id: req.body.id,
      // just another comment 
+    
     name: req.body.name,
     email : req.body.email,
     password : req.body.password

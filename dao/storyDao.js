@@ -1,7 +1,7 @@
-// const Driver = require("../database/driver");
-// const Mysql = require("../database/tempMysql");
+const Driver = require("../database/driver");
+const Mysql = require("../database/tempMysql");
 
-// const obj = new Driver(new Mysql());
-// obj.createStoryTable("story");
-// obj.createUserTable("user");
-// module.exports = obj;
+const mysqlObject = new Driver(new Mysql());
+mysqlObject.createStoryTable("story");
+mysqlObject.createUserTable("user");
+module.exports = mysqlObject;
