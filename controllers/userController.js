@@ -1,93 +1,93 @@
-//const db = require("../database/mysql");
-//const User = require("../models/userModel");
+// //const db = require("../database/mysql");
+// //const User = require("../models/userModel");
 
-const object=require("../dao/storyDao");
-const db=object.dbObject.db;
-const User = object.dbObject.userTable;
+// const object=require("../dao/dbDao");
+// const db=object.dbObject.db;
+// const User = object.dbObject.userTable;
 
-exports.createUser = (req, res) => {
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
-  console.log(req.body);
-  const newUser = {
-    //id: req.body.id,
-     // just another comment 
+// exports.createUser = (req, res) => {
+//   if (!req.body) {
+//     res.status(400).send({
+//       message: "Content can not be empty!",
+//     });
+//     return;
+//   }
+//   console.log(req.body);
+//   const newUser = {
+//     //id: req.body.id,
+//      // just another comment 
     
-    name: req.body.name,
-    email : req.body.email,
-    password : req.body.password
-  };
-  User.create(newUser)
-    .then((data) => {
-      res.status(201).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message,
-      });
-    });
-};
+//     name: req.body.name,
+//     email : req.body.email,
+//     password : req.body.password
+//   };
+//   User.create(newUser)
+//     .then((data) => {
+//       res.status(201).send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message,
+//       });
+//     });
+// };
 
-exports.getAllUser = (req, res) => {
-  User.findAll()
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message,
-      });
-    });
-};
+// exports.getAllUser = (req, res) => {
+//   User.findAll()
+//     .then((data) => {
+//       res.status(200).send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message,
+//       });
+//     });
+// };
 
-exports.getUser = (req, res) => {
-  User.findAll({ where: { id: req.params.id } })
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message,
-      });
-    });
-};
+// exports.getUser = (req, res) => {
+//   User.findAll({ where: { id: req.params.id } })
+//     .then((data) => {
+//       res.status(200).send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message,
+//       });
+//     });
+// };
 
-exports.updateUser = (req, res) => {
-  const id = req.params.id;
-  User
-    .update(req.body, {
-      where: { id: id },
-    })
-    .then(() => {
-      res.status(200).send({
-        message: "Story was updated successfully!",
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: `Error updating story with id= ${id}`,
-      });
-    });
-};
+// exports.updateUser = (req, res) => {
+//   const id = req.params.id;
+//   User
+//     .update(req.body, {
+//       where: { id: id },
+//     })
+//     .then(() => {
+//       res.status(200).send({
+//         message: "Story was updated successfully!",
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: `Error updating story with id= ${id}`,
+//       });
+//     });
+// };
 
-exports.deleteUser = (req, res) => {
-  const id = req.params.id;
-  User
-    .destroy({
-      where: { id: id },
-    })
-    .then(() => {
-      res.status(200).send({
-        message: "Story was deleted successfully!",
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: `Could not delete story with id= ${id}`,
-      });
-    });
-};
+// exports.deleteUser = (req, res) => {
+//   const id = req.params.id;
+//   User
+//     .destroy({
+//       where: { id: id },
+//     })
+//     .then(() => {
+//       res.status(200).send({
+//         message: "Story was deleted successfully!",
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: `Could not delete story with id= ${id}`,
+//       });
+//     });
+// };

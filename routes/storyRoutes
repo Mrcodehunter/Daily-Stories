@@ -1,12 +1,13 @@
-const stories = require("../controllers/storyController.js");
+//const stories = require("../controllers/storyController.js");
+const storyServiceDaoObject = require("../dao/serviceDao").storyServiceDaoObject;
 var router = require("express").Router();
 module.exports = app => {
 
-  router.post("/", stories.createStory);
-  router.get("/", stories.getAllStory);
-  router.get("/:id", stories.getStory);
-  router.patch("/:id", stories.updateStory);
-  router.delete("/:id", stories.deleteStory);
+  router.post("/", storyServiceDaoObject.createStory);
+  router.get("/", storyServiceDaoObject.getAllStory);
+  router.get("/:id", storyServiceDaoObject.getStory);
+  router.patch("/:id", storyServiceDaoObject.updateStory);
+  router.delete("/:id", storyServiceDaoObject.deleteStory);
   app.use('/api/v1/stories', router);
 
  };

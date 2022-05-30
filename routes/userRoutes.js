@@ -1,12 +1,12 @@
-const users = require("../controllers/userController.js");
+const userServiceDaoObject = require("../dao/serviceDao").userServiceDaoObject;
 var router = require("express").Router();
 module.exports = app => {
 
-  router.post("/", users.createUser);
-  router.get("/", users.getAllUser);
-  router.get("/:id", users.getUser);
-  router.patch("/:id", users.updateUser);
-  router.delete("/:id", users.deleteUser);
+  router.post("/", userServiceDaoObject.createUser);
+  router.get("/", userServiceDaoObject.getAllUser);
+  router.get("/:id", userServiceDaoObject.getUser);
+  router.patch("/:id", userServiceDaoObject.updateUser);
+  router.delete("/:id", userServiceDaoObject.deleteUser);
   app.use('/api/v1/users', router);
 
  };
