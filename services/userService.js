@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 class UserService{
     constructor(userTable){
         this.userTable = userTable;
@@ -17,11 +20,15 @@ class UserService{
           
           name: req.body.name,
           email : req.body.email,
-          password : req.body.password
+          password : bcrypt.hashSync(req.body.password,8)
         };
         this.userTable.create(newUser)
           .then((data) => {
-            res.status(201).send(data);
+            res.status(201).send({
+              status : "success",
+              data,
+              token : jwt.sign(data.id,"secret-key-just-a-demo")
+            });
           })
           .catch((err) => {
             res.status(500).send({

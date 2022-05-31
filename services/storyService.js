@@ -12,10 +12,10 @@ class StoryService{
           return;
         }
         const newStory = {
-          id: req.body.id,
+          //id: req.body.id,
           title: req.body.title,
           description: req.body.description,
-          author : req.body.author
+          author : req.author
         };
         this.storyTable.create(newStory)
           .then((data) => {
