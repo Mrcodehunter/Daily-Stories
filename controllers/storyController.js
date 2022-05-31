@@ -1,86 +1,30 @@
-// const object=require("../dao/storyDao");
-// const db=object.dbObject.db;
-// const Story = object.dbObject.storyTable;
-// exports.createStory = (req, res) => {
-//   if (!req.body) {
-//     res.status(400).send({
-//       message: "Content can not be empty!",
-//     });
-//     return;
-//   }
-//   const newStory = {
-//     id: req.body.id,
-//     title: req.body.title,
-//     description: req.body.description,
-//     author : req.body.author
-//   };
-//   Story.create(newStory)
-//     .then((data) => {
-//       res.status(201).send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message,
-//       });
-//     });
-// };
 
-// exports.getAllStory = (req, res) => {
-//   Story.findAll()
-//     .then((data) => {
-//       res.status(200).send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message,
-//       });
-//     });
-// };
+const Mysql = require("../database/tempMysql");
+const StoryService = require("../services/storyService");
 
-// exports.getStory = (req, res) => {
-//   Story.findAll({ where: { id: req.params.id } })
-//     .then((data) => {
-//       res.status(200).send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message,
-//       });
-//     });
-// };
 
-// exports.updateStory = (req, res) => {
-//   const id = req.params.id;
-//   Story
-//     .update(req.body, {
-//       where: { id: id },
-//     })
-//     .then(() => {
-//       res.status(200).send({
-//         message: "Story was updated successfully!",
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: `Error updating story with id= ${id}`,
-//       });
-//     });
-// };
+const mysqlObject = new Mysql();
 
-// exports.deleteStory = (req, res) => {
-//   const id = req.params.id;
-//   Story
-//     .destroy({
-//       where: { id: id },
-//     })
-//     .then(() => {
-//       res.status(200).send({
-//         message: "Story was deleted successfully!",
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: `Could not delete story with id= ${id}`,
-//       });
-//     });
-// };
+const storyServiceObject = new StoryService(mysqlObject.db.story);
+
+
+
+exports.createStory = (req, res) => {
+  storyServiceObject.createStory(req,res);
+};
+
+exports.getAllStory = (req, res) => {
+   storyServiceObject.getAllStory(req,res);
+};
+
+exports.getStory = (req, res) => {
+  storyServiceObject.getStory(req,res);
+};
+
+exports.updateStory = (req, res) => {
+  storyServiceObject.updateStory(re4q,res);
+};
+
+exports.deleteStory = (req, res) => {
+    storyServiceObject.deleteStory(req,res);
+};

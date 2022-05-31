@@ -1,4 +1,5 @@
-const userServiceDaoObject = require("../dao/serviceDao").userServiceDaoObject;
+//const userServiceDaoObject = require("../dao/serviceDao").userServiceDaoObject;
+const userController = require("../controllers/userController");
 const verifySignup = require("../middleware/verifySignUp");
 const verifySignin = require("../middleware/verifySignIn");
 const verifyToken = require("../middleware/verifyToken");
@@ -6,7 +7,7 @@ var router = require("express").Router();
 
 router
 .route('/api/v1/usersSignup')
-.post(verifySignup, userServiceDaoObject.createUser);
+.post(verifySignup, userController.createUser);
 
 
 router
@@ -15,13 +16,13 @@ router
 
 router
 .route('/api/v1/users')
-.get(verifyToken, userServiceDaoObject.getAllUser );
+.get(verifyToken, userController.getAllUser );
 
 router
 .route('/api/v1/users/:id')
-.get(verifyToken, userServiceDaoObject.getUser)
-.patch(verifyToken, userServiceDaoObject.updateUser)
-.delete(verifyToken, userServiceDaoObject.deleteUser);
+.get(verifyToken, userController.getUser)
+.patch(verifyToken, userController.updateUser)
+.delete(verifyToken, userController.deleteUser);
   
 module.exports = router;
   
