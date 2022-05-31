@@ -1,15 +1,19 @@
 //const stories = require("../controllers/storyController.js");
 const storyServiceDaoObject = require("../dao/serviceDao").storyServiceDaoObject;
+const verifyToken = require("../middleware/verifyToken");
 var router = require("express").Router();
-module.exports = app => {
 
-  router.post("/", storyServiceDaoObject.createStory);
-  router.get("/", storyServiceDaoObject.getAllStory);
-  router.get("/:id", storyServiceDaoObject.getStory);
-  router.patch("/:id", storyServiceDaoObject.updateStory);
-  router.delete("/:id", storyServiceDaoObject.deleteStory);
-  app.use('/api/v1/stories', router);
+router
+.route('/api/v1/stories')
+.post(verifyToken, storyServiceDaoObject.createStory)
+.get( storyServiceDaoObject.getAllStory);
 
- };
+router
+.route('/api/v1/stories/:id')
+.get( storyServiceDaoObject.getStory)
+.patch(verifyToken, storyServiceDaoObject.updateStory)
+.delete(verifyToken, storyServiceDaoObject.deleteStory);
+
+module.exports = router
 
 
