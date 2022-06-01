@@ -12,7 +12,6 @@ class StoryService{
           return;
         }
         const newStory = {
-          //id: req.body.id,
           title: req.body.title,
           description: req.body.description,
           author : req.author

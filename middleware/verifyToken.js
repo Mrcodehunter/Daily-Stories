@@ -14,10 +14,8 @@ verifyToken = (req,res,next) =>{
             message: "Unauthorized!"
         });
     }
-    //req.userId = data.id;
-    //req.author = data.name;
-    //console.log(data);
-    //console.log("23");
+    req.userId = data.id;
+    req.author = data.name;
     next();
   });
 }

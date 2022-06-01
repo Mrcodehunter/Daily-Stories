@@ -1,5 +1,5 @@
-const dbDaoObject = require("../dao/dbDao");
-const userTable = dbDaoObject.dbObject.userTable;
+
+const {userTable} = require("../controllers/userController");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +19,7 @@ checkIfUserExists = (req,res,next) => {
 
         res.status(201).send({
             status : "success",
-            token : jwt.sign(user.id,"secret-key-just-a-demo")
+            token : jwt.sign({id:user.id,name:user.name},"secret-key-just-a-demo")
           });
     } )
     .catch(err => {

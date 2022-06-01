@@ -1,7 +1,7 @@
 //const dbDaoObject = require("../dao/dbDao");
-const UserModel = require("../modelas/userModel");
-const userModelObject = new
-const userTable = dbDaoObject.dbObject.userTable;
+const UserModel = require("../models/userModel");
+ 
+const {userTable} = require("../controllers/userController");
 
 checkDuplicateUsernameOrEmail = (req,res,next) => {
     userTable.findOne({
