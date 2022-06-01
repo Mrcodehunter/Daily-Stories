@@ -1,9 +1,11 @@
-const Mysql = require("../database/tempMysql");
+const Mysql = require("../database/Mysql");
 const UserService = require("../services/userService");
 
 
 const mysqlObject = new Mysql();
 const userServiceObject = new UserService(mysqlObject.db.user);
+
+exports.userTable = mysqlObject.db.user;
 
 exports.createUser = (req, res) => {
     userServiceObject.createUser(req,res);
