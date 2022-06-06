@@ -1,107 +1,83 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
 
 class UserService {
   constructor(userTable) {
     this.userTable = userTable;
   }
 
-  createUser = (req, res) => {
-    if (!req.body) {
-      res.status(400).send({
-        message: "Content can not be empty!",
-      });
-      return;
-    }
-    console.log(req.body);
+  createUser = catchAsync(async (req, res, next) => {
     const newUser = {
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     };
-    this.userTable
-      .create(newUser)
-      .then((data) => {
-        res.status(201).send({
-          status: "success",
-          data,
-          token: jwt.sign(
-            { id: data.id, name: data.name },
-            "secret-key-just-a-demo"
-          ),
-        });
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
-        });
-      });
-  };
 
-  getAllUser = (req, res) => {
-    this.userTable
-      .findAll()
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
-        });
-      });
-  };
+    const data = await this.userTable.create(newUser);
 
-  getUser = (req, res) => {
-    this.userTable
-      .findAll({ where: { id: req.params.id } })
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
-        });
-      });
-  };
+    res.status(201).send({
+      status: "success",
+      data: {
+        user: data,
+      },
+      token: jwt.sign(
+        { id: data.id, name: data.name },
+        "secret-key-just-a-demo"
+      ),
+    });
+  });
 
-  updateUser = (req, res) => {
-    const id = req.params.id;
-    this.userTable
-      .update(req.body, {
-        where: { id: id },
-      })
-      .then(() => {
-        res.status(200).send({
-          message: "User was updated successfully!",
-        });
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: `Error updating user with id= ${id}`,
-        });
-      });
-  };
+  getAllUser = catchAsync(async (req, res, next) => {
+    const users = await this.userTable.findAll();
 
-  deleteUser = (req, res) => {
-    const id = req.params.id;
-  
-    this.userTable
-      .destroy({
-        where: { id: id },
-      })
-      .then(() => {
-        res.status(200).send({
-          message: "User was deleted successfully!",
-        });
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: `Could not delete user with id= ${id}`,
-        });
-      });
-  };
-  
+    res.status(200).send({
+      status: "success",
+      data: {
+        users,
+      },
+    });
+  });
+
+  getUser = catchAsync(async (req, res, next) => {
+    const user = await this.userTable.findOne({ where: { id: req.params.id } });
+    
+    if(!user) return next(new AppError("No user found with that ID",404));
+
+    res.status(200).send({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  });
+
+  updateUser = catchAsync(async (req, res, next) => {
+    const user = await this.userTable.update(req.body, {
+      where: { id: req.params.id },
+    });
+    
+    if(!(user[0])) return next(new AppError("No user found with that ID",404));
+
+    res.status(200).send({
+      status: "success",
+      message : "user was updated successfully!"
+    });
+  });
+
+  deleteUser = catchAsync(async (req, res, next) => {
+    const user = await this.userTable.destroy({
+      where: { id: req.params.id },
+    });
+    
+    if(!user) return next(new AppError("No user found with that ID",404));
+
+    res.status(200).send({
+      status: "success",
+      data: null,
+    });
+  });
 }
-
 
 module.exports = UserService;

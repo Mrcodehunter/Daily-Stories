@@ -7,22 +7,22 @@ const userServiceObject = new UserService(mysqlObject.db.user);
 
 exports.userTable = mysqlObject.db.user;
 
-exports.createUser = (req, res) => {
-    userServiceObject.createUser(req,res);
+exports.createUser = (req, res, next) => {
+    userServiceObject.createUser(req, res, next);
 };
 
-exports.getAllUser = (req, res) => {
-   userServiceObject.getAllUser(req,res);
+exports.getAllUser = (req, res, next) => {
+   userServiceObject.getAllUser(req, res, next);
 };
 
-exports.getUser = (req, res) => {
-   userServiceObject.getUser(req,res);
+exports.getUser = (req, res, next) => {
+   userServiceObject.getUser(req, res, next);
 };
 
-exports.updateUser = (req, res) => {
-   userServiceObject.updateUser(req,res);
+exports.updateUser = (req, res, next) => {
+   userServiceObject.updateUser(req, res, next);
 };
 
-exports.deleteUser = (req, res) => {
-   userServiceObject.deleteUser(req,res);
+exports.deleteUser = (req, res, next) => {
+   userServiceObject.deleteUser(req, res, next);
 };

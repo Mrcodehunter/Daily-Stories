@@ -9,22 +9,22 @@ const storyServiceObject = new StoryService(mysqlObject.db.story);
 
 exports.storyTable = mysqlObject.db.story;
 
-exports.createStory = (req, res) => {
-  storyServiceObject.createStory(req,res);
+exports.createStory = (req, res, next) => {
+  storyServiceObject.createStory(req,res, next);
 };
 
-exports.getAllStory = (req, res) => {
-   storyServiceObject.getAllStory(req,res);
+exports.getAllStory = (req, res, next) => {
+   storyServiceObject.getAllStory(req,res, next);
 };
 
-exports.getStory = (req, res) => {
-  storyServiceObject.getStory(req,res);
+exports.getStory = (req, res, next) => {
+  storyServiceObject.getStory(req,res, next);
 };
 
-exports.updateStory = (req, res) => {
-  storyServiceObject.updateStory(req,res);
+exports.updateStory = (req, res, next) => {
+  storyServiceObject.updateStory(req,res, next);
 };
 
-exports.deleteStory = (req, res) => {
-    storyServiceObject.deleteStory(req,res);
+exports.deleteStory = (req, res, next) => {
+    storyServiceObject.deleteStory(req,res, next);
 };
