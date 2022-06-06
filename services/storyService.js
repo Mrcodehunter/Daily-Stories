@@ -1,92 +1,83 @@
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
 
-class StoryService{
-    constructor(storyTable){
-        this.storyTable = storyTable;
-    }
+class StoryService {
+  constructor(storyTable) {
+    this.storyTable = storyTable;
+  }
+
+  createStory = catchAsync(async (req, res, next) => {
+
+    const newStory = await this.storyTable.create(req.body);
+
+    res.status(201).send({
+      status: "success",
+      data: {
+        story: newStory,
+      },
+    });
+
+  });
+
+  getAllStory = catchAsync(async (req, res, next) => {
+
+    const stories = await this.storyTable.findAll();
+    res.status(200).send({
+      status: "success",
+      data: {
+        stories,
+      },
+    });
+
+  });
+
+  getStory = catchAsync(async (req, res, next) => {
+
+    const story = await this.storyTable.findOne({
+      where: { id: req.params.id },
+    });
     
-    createStory = (req, res) => {
-        if (!req.body) {
-          res.status(400).send({
-            message: "Content can not be empty!",
-          });
-          return;
-        }
-        const newStory = {
-          title: req.body.title,
-          description: req.body.description,
-          author : req.author
-        };
-        this.storyTable.create(newStory)
-          .then((data) => {
-            res.status(201).send(data);
-          })
-          .catch((err) => {
-            res.status(500).send({
-              message: err.message,
-            });
-          });
-      };
-      getAllStory = (req, res) => {
-        this.storyTable.findAll()
-          .then((data) => {
-            res.status(200).send(data);
-          })
-          .catch((err) => {
-            res.status(500).send({
-              message: err.message,
-            });
-          });
-      };
-      
-      getStory = (req, res) => {
-        this.storyTable.findAll({ where: { id: req.params.id } })
-          .then((data) => {
-            res.status(200).send(data);
-          })
-          .catch((err) => {
-            res.status(500).send({
-              message: err.message,
-            });
-          });
-      };
-      
-      updateStory = (req, res) => {
-        const id = req.params.id;
-        this.storyTable
-          .update(req.body, {
-            where: { id: id },
-          })
-          .then(() => {
-            res.status(200).send({
-              message: "Story was updated successfully!",
-            });
-          })
-          .catch((err) => {
-            res.status(500).send({
-              message: `Error updating story with id= ${id}`,
-            });
-          });
-      };
-      
-      deleteStory = (req, res) => {
-        const id = req.params.id;
-        this.storyTable
-          .destroy({
-            where: { id: id },
-          })
-          .then(() => {
-            res.status(200).send({
-              message: "Story was deleted successfully!",
-            });
-          })
-          .catch((err) => {
-            res.status(500).send({
-              message: `Could not delete story with id= ${id}`,
-            });
-          });
-      };
-      
-}
+    if(!story) return next(new AppError("No story found with that ID",404));
 
+    res.status(200).send({
+      status: "success",
+      data: {
+        story,
+      },
+    });
+
+  });
+
+  updateStory = catchAsync(async (req, res, next) => {
+
+    const story = await this.storyTable.update(req.body, {
+      where: { id: req.params.id },
+    });
+    
+
+    if(!story[0]) return next(new AppError("No story found with that ID",404));
+
+    res.status(200).send({
+      status: "success",
+      message : "story was updated successfully"
+    });
+
+  });
+
+  deleteStory = catchAsync(async (req, res, next) => {
+
+    const story = await this.storyTable.destroy({
+      where: { id: req.params.id },
+    });
+
+    if(!story) return next(new AppError("No story found with that ID",404));
+
+    res.status(200).send({
+      status: "success",
+      data: null,
+    });
+  });
+
+}
 
 module.exports = StoryService;
