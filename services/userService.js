@@ -22,10 +22,7 @@ class UserService {
       data: {
         user: data,
       },
-      token: jwt.sign(
-        { id: data.id, name: data.name },
-        "secret-key-just-a-demo"
-      ),
+      token: jwt.sign({ id: data.id, name: data.name },"secret-key-just-a-demo"),
     });
   });
 

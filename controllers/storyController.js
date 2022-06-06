@@ -1,13 +1,11 @@
 
 const Mysql = require("../database/Mysql");
 const StoryService = require("../services/storyService");
+const {storyTable}= require("../database/driver");
 
+const storyServiceObject = new StoryService(storyTable);
 
-const mysqlObject = new Mysql();
-
-const storyServiceObject = new StoryService(mysqlObject.db.story);
-
-exports.storyTable = mysqlObject.db.story;
+//exports.storyTable = mysqlObject.db.story;
 
 exports.createStory = (req, res, next) => {
   storyServiceObject.createStory(req,res, next);

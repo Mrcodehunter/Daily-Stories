@@ -1,5 +1,4 @@
 const storyController = require("../controllers/storyController.js");
-//const storyServiceDaoObject = require("../dao/serviceDao").storyServiceDaoObject;
 const verifyToken = require("../middleware/verifyToken");
 var router = require("express").Router();
 

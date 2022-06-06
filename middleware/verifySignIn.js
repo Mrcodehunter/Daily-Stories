@@ -1,31 +1,22 @@
-
-const {userTable} = require("../controllers/userController");
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
+const {userTable} = require("../database/driver");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-checkIfUserExists = (req,res,next) => {
-    userTable.findOne({
-        where : {name : req.body.name}
-    })
-    .then ( user => {
-        if(!user){
-            res.status(400).send({message: "Invalid username or password!"});
-            return;
-        }
-        if(!bcrypt.compareSync(req.body.password,user.password)){
-            res.status(400).send({message: "Invalid username or password!"});
-            return;
-        }
-
-        res.status(201).send({
-            status : "success",
-            token : jwt.sign({id:user.id,name:user.name},"secret-key-just-a-demo")
-          });
-    } )
-    .catch(err => {
-        res.status(500).send({ message: err.message });
+checkIfUserExists = catchAsync( async(req,res,next) => {
+    const user = await userTable.findOne( { where : {name : req.body.name} } );
+    
+    if(!user)return next(new AppError("Invalid username or password!",400));
+    if(!bcrypt.compareSync(req.body.password,user.password))return next(new AppError("Invalid username or password!",400));
+    
+    res.status(201).send({
+        status : "success",
+        token : jwt.sign({id:user.id,name:user.name},"secret-key-just-a-demo")
     });
-};
+    
+    
+});
 
 const verifySignin = checkIfUserExists;
 

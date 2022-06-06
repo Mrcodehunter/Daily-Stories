@@ -10,10 +10,12 @@ class UserModel {
       },
       name: {
         type: Sequelize.STRING,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
         validate: { isEmail: true },
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
