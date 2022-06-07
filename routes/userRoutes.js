@@ -1,7 +1,8 @@
 //const userServiceDaoObject = require("../dao/serviceDao").userServiceDaoObject;
 const userController = require("../controllers/userController");
-const verifySignin = require("../middleware/verifySignIn");
+const {verifySignin} = require("../middleware/verifySignIn");
 const verifyToken = require("../middleware/verifyToken");
+const verifyUserAuthorization = require("../middleware/verifyUserAuthorization");
 var router = require("express").Router();
 
 router
@@ -20,8 +21,8 @@ router
 router
 .route('/api/v1/users/:id')
 .get( userController.getUser)
-.patch( verifyToken, userController.updateUser)
-.delete( verifyToken, userController.deleteUser);
+.patch( verifyToken, verifyUserAuthorization,userController.updateUser)
+.delete( verifyToken, verifyUserAuthorization,userController.deleteUser);
   
 module.exports = router;
   

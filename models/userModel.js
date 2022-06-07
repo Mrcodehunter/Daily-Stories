@@ -11,19 +11,26 @@ class UserModel {
       name: {
         type: Sequelize.STRING,
         unique: true,
+        validate: {
+          notEmpty: {
+            args: true
+          },
+        },
       },
       email: {
         type: Sequelize.STRING,
-        validate: { isEmail: true },
         unique: true,
+        validate: {
+          isEmail: true
+        },
       },
       password: {
         type: Sequelize.STRING,
       },
     });
   }
-  getUserTable(){
-      return this.user;
+  getUserTable() {
+    return this.user;
   }
 }
 

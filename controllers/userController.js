@@ -1,10 +1,9 @@
 const Mysql = require("../database/Mysql");
 const UserService = require("../services/userService");
-const {userTable}= require("../database/driver");
+const mysqlObject = require("../database/driver");
 
-const userServiceObject = new UserService(userTable);
+const userServiceObject = new UserService(mysqlObject.db.user);
 
-//exports.userTable = mysqlObject.db.user;
 
 exports.createUser = (req, res, next) => {
     userServiceObject.createUser(req, res, next);

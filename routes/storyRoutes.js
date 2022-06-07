@@ -1,5 +1,6 @@
 const storyController = require("../controllers/storyController.js");
 const verifyToken = require("../middleware/verifyToken");
+const verifyStoryAuthorization = require("../middleware/verifyStoryAuthorization");
 var router = require("express").Router();
 
 router
@@ -10,8 +11,8 @@ router
 router
     .route('/api/v1/stories/:id')
     .get( storyController.getStory)
-    .patch(verifyToken, storyController.updateStory)
-    .delete(verifyToken, storyController.deleteStory);
+    .patch(verifyToken, verifyStoryAuthorization,storyController.updateStory)
+    .delete(verifyToken, verifyStoryAuthorization,storyController.deleteStory);
 
 module.exports = router
 

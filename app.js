@@ -7,6 +7,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/globalErrorHandler');
 const storyRoute = require("./routes/storyRoutes");
 const userRoute = require("./routes/userRoutes");
+require('dotenv').config();
 
 app.use(storyRoute);
 app.use(userRoute);
@@ -15,8 +16,7 @@ app.all('/*',(req,res,next)=>{
 })
 app.use(globalErrorHandler);
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
+app.listen(process.env.PORT, () => {
+  console.log(`App running on port ${process.env.PORT}...`);
 });
 module.exports = app;

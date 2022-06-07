@@ -26,6 +26,7 @@ const developmentError = ( err, res) =>{
 module.exports = ( err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
+    console.log(err);
     if(true/*process.env.NODE_ENV === 'dev'*/)developmentError(err,res);
     else if(true/*process.env.NODE_ENV === 'production'*/)productionError(err,res);
 }

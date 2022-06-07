@@ -24,10 +24,9 @@ class Mysql {
   constructor() {
 
     this.db = db;
-    database.sync();
+  database.sync({ /* force: true */ });
     
   }
 }
 
 module.exports = Mysql;
-//exports.database=database;
