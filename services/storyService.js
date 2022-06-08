@@ -8,26 +8,26 @@ class StoryService {
     return newStory;
   };
 
-  getAllStory = async (req, res, next) => {
+  getAllStory = async () => {
     const stories = await this.storyTable.findAll();
     return stories;
   };
 
   getStory = async (id) => {
-    const story = await this.storyTable.findOne({ where: { id: id } });
+    const story = await this.storyTable.findOne({ where: { id } });
 
     return story;
   };
 
   updateStory = async (body, id) => {
-    const story = await this.storyTable.update(body, { where: { id: id } });
+    const story = await this.storyTable.update(body, { where: { id } });
 
     return story;
   };
 
   deleteStory = async (id) => {
     const story = await this.storyTable.destroy({
-      where: { id: id },
+      where: { id },
     });
 
     return story;

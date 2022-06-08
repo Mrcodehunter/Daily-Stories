@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 class UserModel {
   constructor(db) {
-    this.user = db.define("user", {
+    this.user = db.define('user', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -13,7 +13,7 @@ class UserModel {
         unique: true,
         validate: {
           notEmpty: {
-            args: true
+            args: true,
           },
         },
       },
@@ -21,7 +21,7 @@ class UserModel {
         type: Sequelize.STRING,
         unique: true,
         validate: {
-          isEmail: true
+          isEmail: true,
         },
       },
       password: {
@@ -29,6 +29,7 @@ class UserModel {
       },
     });
   }
+
   getUserTable() {
     return this.user;
   }

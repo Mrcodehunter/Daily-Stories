@@ -1,5 +1,4 @@
-const Mysql = require("./mysql");
+const Mysql = require('./mysql');
+
 const mysqlObject = new Mysql();
-module.exports=mysqlObject;
-
-
+module.exports = mysqlObject;

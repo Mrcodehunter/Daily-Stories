@@ -1,4 +1,5 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
+
 class UserService {
   constructor(userTable) {
     this.userTable = userTable;
@@ -23,21 +24,20 @@ class UserService {
   };
 
   getUser = async (id) => {
-    const user = await this.userTable.findOne({ where: { id: id } });
+    const user = await this.userTable.findOne({ where: { id } });
     return user;
   };
 
   updateUser = async (body, id) => {
-    
     const user = await this.userTable.update(body, {
-      where: { id: id },
+      where: { id },
     });
     return user;
   };
 
   deleteUser = async (id) => {
     const user = await this.userTable.destroy({
-      where: { id: id },
+      where: { id },
     });
 
     return user;

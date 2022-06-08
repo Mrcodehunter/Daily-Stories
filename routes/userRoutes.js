@@ -1,28 +1,25 @@
-const userController = require("../controllers/userController");
-const {verifySignin} = require("../middleware/verifySignIn");
-const verifyToken = require("../middleware/verifyToken");
-const verifyUserAuthorization = require("../middleware/verifyUserAuthorization");
-var router = require("express").Router();
+const router = require('express').Router();
+const userController = require('../controllers/userController');
+const { verifySignin } = require('../middleware/verifySignIn');
+const verifyToken = require('../middleware/verifyToken');
+const verifyUserAuthorization = require('../middleware/verifyUserAuthorization');
 
 router
-.route('/api/v1/usersSignup')
-.post(userController.createUser);
-
-
-router
-.route('/api/v1/usersSignin')
-.post(verifySignin);
+  .route('/api/v1/usersSignup')
+  .post(userController.createUser);
 
 router
-.route('/api/v1/users')
-.get( userController.getAllUser);
+  .route('/api/v1/usersSignin')
+  .post(verifySignin);
 
 router
-.route('/api/v1/users/:id')
-.get( userController.getUser)
-.patch( verifyToken, verifyUserAuthorization,userController.updateUser)
-.delete( verifyToken, verifyUserAuthorization,userController.deleteUser);
-  
+  .route('/api/v1/users')
+  .get(userController.getAllUser);
+
+router
+  .route('/api/v1/users/:id')
+  .get(userController.getUser)
+  .patch(verifyToken, verifyUserAuthorization, userController.updateUser)
+  .delete(verifyToken, verifyUserAuthorization, userController.deleteUser);
+
 module.exports = router;
-  
-
