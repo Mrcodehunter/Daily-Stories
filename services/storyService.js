@@ -1,83 +1,37 @@
-const catchAsync = require("./../utils/catchAsync");
-const AppError = require("./../utils/appError");
-
 class StoryService {
   constructor(storyTable) {
     this.storyTable = storyTable;
   }
 
-  createStory = catchAsync(async (req, res, next) => {
+  createStory = async (newData) => {
+    const newStory = await this.storyTable.create(newData);
+    return newStory;
+  };
 
-    const newStory = await this.storyTable.create(req.body);
-
-    res.status(201).send({
-      status: "success",
-      data: {
-        story: newStory,
-      },
-    });
-
-  });
-
-  getAllStory = catchAsync(async (req, res, next) => {
-
+  getAllStory = async (req, res, next) => {
     const stories = await this.storyTable.findAll();
-    res.status(200).send({
-      status: "success",
-      data: {
-        stories,
-      },
-    });
+    return stories;
+  };
 
-  });
+  getStory = async (id) => {
+    const story = await this.storyTable.findOne({ where: { id: id } });
 
-  getStory = catchAsync(async (req, res, next) => {
+    return story;
+  };
 
-    const story = await this.storyTable.findOne({
-      where: { id: req.params.id },
-    });
-    
-    if(!story) return next(new AppError("No story found with that ID",404));
+  updateStory = async (body, id) => {
+    const story = await this.storyTable.update(body, { where: { id: id } });
 
-    res.status(200).send({
-      status: "success",
-      data: {
-        story,
-      },
-    });
+    return story;
+  };
 
-  });
-
-  updateStory = catchAsync(async (req, res, next) => {
-
-    const story = await this.storyTable.update(req.body, {
-      where: { id: req.params.id },
-    });
-    
-
-    if(!story[0]) return next(new AppError("No story found with that ID",404));
-
-    res.status(200).send({
-      status: "success",
-      message : "story was updated successfully"
-    });
-
-  });
-
-  deleteStory = catchAsync(async (req, res, next) => {
-
+  deleteStory = async (id) => {
     const story = await this.storyTable.destroy({
-      where: { id: req.params.id },
+      where: { id: id },
     });
 
-    if(!story) return next(new AppError("No story found with that ID",404));
-
-    res.status(200).send({
-      status: "success",
-      data: null,
-    });
-  });
-
+    return story;
+  };
 }
 
 module.exports = StoryService;

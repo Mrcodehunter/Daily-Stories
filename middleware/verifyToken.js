@@ -1,16 +1,16 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
-verifyToken = (req, res, next) => {
+const catchAsync = require("../utils/catchAsync");
+const tokenHandler = require("../utils/tokenHandler");
+
+verifyToken = catchAsync(async(req, res, next) => {
   if (!req.body.token) return next(new AppError("No token provided!", 403));
+  const data = await tokenHandler.verifyToken(req.body.token);
+  
+  req.body.userId = data.id;
+  req.body.author = data.name;
 
-  jwt.verify(req.body.token, process.env.JWT-SECRET, (err, data) => {
-    if (err) return next(new AppError("Unauthorized!", 401));
+  next();
 
-    req.body.userId = data.id;
-    req.body.author = data.name;
-    next();
-  });
-};
+});
 
 module.exports = verifyToken;

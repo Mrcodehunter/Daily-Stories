@@ -1,4 +1,3 @@
-//const userServiceDaoObject = require("../dao/serviceDao").userServiceDaoObject;
 const userController = require("../controllers/userController");
 const {verifySignin} = require("../middleware/verifySignIn");
 const verifyToken = require("../middleware/verifyToken");
@@ -16,7 +15,7 @@ router
 
 router
 .route('/api/v1/users')
-.get( userController.getAllUser );
+.get( userController.getAllUser);
 
 router
 .route('/api/v1/users/:id')

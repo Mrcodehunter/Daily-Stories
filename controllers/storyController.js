@@ -1,27 +1,57 @@
 
-const Mysql = require("../database/Mysql");
+
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
 const StoryService = require("../services/storyService");
 const mysqlObject = require("../database/driver");
+const responseHandler = require("../utils/responseHandler");
 
 const storyServiceObject = new StoryService(mysqlObject.db.story);
 
 
-exports.createStory = (req, res, next) => {
-  const newStory = storyServiceObject.createStory(req,res, next);
-};
+exports.createStory = catchAsync( async(req, res, next) => {
 
-exports.getAllStory = (req, res, next) => {
-   storyServiceObject.getAllStory(req,res, next);
-};
+  const newStory =await storyServiceObject.createStory(req.body);
 
-exports.getStory = (req, res, next) => {
-  storyServiceObject.getStory(req,res, next);
-};
+  responseHandler(req, res,201,newStory,"created","success");
+  
+});
 
-exports.updateStory = (req, res, next) => {
-  storyServiceObject.updateStory(req,res, next);
-};
+exports.getAllStory = catchAsync( async(req, res, next) => {
 
-exports.deleteStory = (req, res, next) => {
-    storyServiceObject.deleteStory(req,res, next);
-};
+   const stories = await storyServiceObject.getAllStory();
+
+   responseHandler(req, res,200,stories,"send all stories","success");
+  
+});
+
+exports.getStory = catchAsync( async(req, res, next) => {
+
+  const story = await storyServiceObject.getStory(req.params.id);
+
+  if (!story) return next(new AppError("No story found with that ID", 404));
+
+  responseHandler(req, res,200,story,"send the story","success");
+  
+});
+
+exports.updateStory = catchAsync( async(req, res, next) => {
+
+  const story = await storyServiceObject.updateStory(req.body,req.params.id);
+
+  if (!story[0])
+      return next(new AppError("No story found with that ID", 404));
+
+  responseHandler(req, res,200,story,"story was updated successfully","success");
+ 
+});
+
+exports.deleteStory = catchAsync( async(req, res, next) => {
+
+    const story = await storyServiceObject.deleteStory(req.params.id);
+
+    if (!story) return next(new AppError("No story found with that ID", 404));
+
+    responseHandler(req, res,204,null,"story was deleted successfully","success");
+    
+});
