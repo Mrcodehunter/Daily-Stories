@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
+
 const productionError = (err, res) => {
   if (err.isOperational) {
     res.status(err.statusCode).send({

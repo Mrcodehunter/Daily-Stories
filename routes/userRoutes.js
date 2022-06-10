@@ -5,19 +5,19 @@ const verifyToken = require('../middleware/verifyToken');
 const verifyUserAuthorization = require('../middleware/verifyUserAuthorization');
 
 router
-  .route('/api/v1/usersSignup')
+  .route('/signup')
   .post(userController.createUser);
 
 router
-  .route('/api/v1/usersSignin')
+  .route('/signin')
   .post(verifySignin);
 
 router
-  .route('/api/v1/users')
+  .route('/users')
   .get(userController.getAllUser);
 
 router
-  .route('/api/v1/users/:id')
+  .route('/users/:id')
   .get(userController.getUser)
   .put(verifyToken, verifyUserAuthorization, userController.updateUser)
   .delete(verifyToken, verifyUserAuthorization, userController.deleteUser);

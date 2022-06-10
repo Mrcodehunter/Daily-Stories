@@ -23,7 +23,7 @@ const sendXMLResponse = (req, res, statusCode, data, message, status) => {
 };
 
 const sendTextResponse = (req, res, statusCode, data, message, status) => {
-  res.setHeader('content-type', 'text/xml');
+  res.setHeader('content-type', 'text/plain');
   const jsonData = JSON.parse(
     JSON.stringify({
       status,

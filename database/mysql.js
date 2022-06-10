@@ -24,7 +24,7 @@ db.user = (new UserModel(database)).getUserTable();
 class Mysql {
   constructor() {
     this.db = db;
-    database.sync();
+    database.sync({});
   }
 }
 

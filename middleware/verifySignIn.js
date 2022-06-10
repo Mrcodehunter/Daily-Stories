@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const mysqlObject = require('../database/driver');
+const { mysqlObject } = require('../database/driver');
 
 const userTable = mysqlObject.db.user;
 

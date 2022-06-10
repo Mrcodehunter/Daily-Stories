@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const mysqlObject = require('../database/driver');
+const { mysqlObject } = require('../database/driver');
 
 const userTable = mysqlObject.db.user;
 const verifyUserAuthorization = catchAsync(async (req, res, next) => {
