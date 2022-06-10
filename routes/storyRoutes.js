@@ -11,7 +11,7 @@ router
 router
   .route('/api/v1/stories/:id')
   .get(storyController.getStory)
-  .patch(verifyToken, verifyStoryAuthorization, storyController.updateStory)
+  .put(verifyToken, verifyStoryAuthorization, storyController.updateStory)
   .delete(verifyToken, verifyStoryAuthorization, storyController.deleteStory);
 
 module.exports = router;

@@ -19,7 +19,7 @@ router
 router
   .route('/api/v1/users/:id')
   .get(userController.getUser)
-  .patch(verifyToken, verifyUserAuthorization, userController.updateUser)
+  .put(verifyToken, verifyUserAuthorization, userController.updateUser)
   .delete(verifyToken, verifyUserAuthorization, userController.deleteUser);
 
 module.exports = router;

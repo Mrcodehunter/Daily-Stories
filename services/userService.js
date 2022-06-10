@@ -29,7 +29,12 @@ class UserService {
   };
 
   updateUser = async (body, id) => {
-    const user = await this.userTable.update(body, {
+    const newUser = {
+      name: body.name,
+      email: body.email,
+      password: bcrypt.hashSync(body.password, 8),
+    };
+    const user = await this.userTable.update(newUser, {
       where: { id },
     });
     return user;
