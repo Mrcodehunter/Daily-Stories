@@ -39,7 +39,14 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   const token = await tokenHandler.createToken(data.id, data.name);
   data.dataValues.token = token;
 
-  responseHandler(req, res, 200, data, 'user was updated successfully!', 'success');
+  responseHandler(
+    req,
+    res,
+    200,
+    data,
+    'user was updated successfully!',
+    'success'
+  );
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {

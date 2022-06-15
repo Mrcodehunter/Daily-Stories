@@ -29,7 +29,7 @@ const sendTextResponse = (req, res, statusCode, data, message, status) => {
       status,
       message,
       data,
-    }),
+    })
   );
   const plainTextData = json2plainText.toPlainText(jsonData);
   return res.status(statusCode).send(plainTextData);

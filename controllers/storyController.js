@@ -9,7 +9,7 @@ const { storyServer } = require('../database/driver');
 exports.createStory = catchAsync(async (req, res, next) => {
   const newStory = await storyServer.createStory(req.body);
 
-  responseHandler(req, res, 201, newStory, 'created', 'success');
+  responseHandler(req, res, 201, newStory, 'new user created', 'success');
 });
 
 exports.getAllStory = catchAsync(async (req, res, next) => {
@@ -29,9 +29,18 @@ exports.getStory = catchAsync(async (req, res, next) => {
 exports.updateStory = catchAsync(async (req, res, next) => {
   const story = await storyServer.updateStory(req.body, req.params.id);
 
-  if (!story[0]) { return next(new AppError('No story found with that ID', 404)); }
+  if (!story[0]) {
+    return next(new AppError('No story found with that ID', 404));
+  }
 
-  responseHandler(req, res, 200, story, 'story was updated successfully', 'success');
+  responseHandler(
+    req,
+    res,
+    200,
+    story,
+    'story was updated successfully',
+    'success'
+  );
 });
 
 exports.deleteStory = catchAsync(async (req, res, next) => {

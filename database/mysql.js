@@ -18,8 +18,8 @@ const database = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const db = {};
 db.database = database;
-db.story = (new StoryModel(database)).getStoryTable();
-db.user = (new UserModel(database)).getUserTable();
+db.story = new StoryModel(database).getStoryTable();
+db.user = new UserModel(database).getUserTable();
 
 class Mysql {
   constructor() {

@@ -7,7 +7,8 @@ const storyTable = mysqlObject.db.story;
 const verifyStoryAuthorization = catchAsync(async (req, res, next) => {
   const story = await storyTable.findOne({ where: { id: req.params.id } });
   if (!story) return next(new AppError('No story found with that ID', 404));
-  if (story.author !== req.body.author) return next(new AppError('Unauthorized', 401));
+  if (story.author !== req.body.author)
+    return next(new AppError('Unauthorized', 401));
   next();
 });
 

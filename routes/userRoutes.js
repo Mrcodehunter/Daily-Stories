@@ -4,17 +4,11 @@ const { verifySignin } = require('../middleware/verifySignIn');
 const verifyToken = require('../middleware/verifyToken');
 const verifyUserAuthorization = require('../middleware/verifyUserAuthorization');
 
-router
-  .route('/signup')
-  .post(userController.createUser);
+router.route('/signup').post(userController.createUser);
 
-router
-  .route('/signin')
-  .post(verifySignin);
+router.route('/signin').post(verifySignin);
 
-router
-  .route('/users')
-  .get(userController.getAllUser);
+router.route('/users').get(userController.getAllUser);
 
 router
   .route('/users/:id')
