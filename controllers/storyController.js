@@ -8,8 +8,8 @@ const { storyServer } = require('../database/driver');
 
 exports.createStory = catchAsync(async (req, res, next) => {
   const newStory = await storyServer.createStory(req.body);
-
-  responseHandler(req, res, 201, newStory, 'new user created', 'success');
+  console.log('Came  here');
+  responseHandler(req, res, 201, newStory, 'new story created', 'success');
 });
 
 exports.getAllStory = catchAsync(async (req, res, next) => {

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { mysqlObject } = require('../database/driver');
-
+const tokenHandler = require('../utils/tokenHandler');
 const userTable = mysqlObject.db.user;
 
 exports.verifySignin = catchAsync(async (req, res, next) => {
@@ -14,6 +14,6 @@ exports.verifySignin = catchAsync(async (req, res, next) => {
     return next(new AppError('Invalid username or password!', 400));
   return res.status(201).send({
     status: 'success',
-    token: jwt.sign({ id: user.id, name: user.name }, 'secret-key-just-a-demo'),
+    token: tokenHandler.createToken(user.id, user.name),
   });
 });

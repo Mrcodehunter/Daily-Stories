@@ -4,7 +4,7 @@
     "no-console": 1,
     "prefer-const": 2
   },
-  "plugins": ["import"],
+  "plugins": ["import", "jest"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2019,
@@ -18,3 +18,5 @@
     "node": true
   }
 }
+//,"plugin:jest/recommended" in extends
+//,"jest": true in env
