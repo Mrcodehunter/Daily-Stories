@@ -15,13 +15,11 @@ class StoryService {
 
   getStory = async (id) => {
     const story = await this.storyTable.findOne({ where: { id } });
-
     return story;
   };
 
   updateStory = async (body, id) => {
     const story = await this.storyTable.update(body, { where: { id } });
-
     return story;
   };
 
@@ -29,7 +27,6 @@ class StoryService {
     const story = await this.storyTable.destroy({
       where: { id },
     });
-
     return story;
   };
 }

@@ -10,7 +10,7 @@ const { userServer } = require('../database/driver');
 
 exports.createUser = catchAsync(async (req, res, next) => {
   const data = await userServer.createUser(req.body);
-  const token = await tokenHandler.createToken(data.id, data.name);
+  const token = tokenHandler.createToken(data.id, data.name);
   data.dataValues.token = token;
   responseHandler(req, res, 201, data, 'New user created', 'success');
 });
