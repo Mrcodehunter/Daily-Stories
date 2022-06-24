@@ -7,14 +7,14 @@ const database = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
 });
-(async () => {
-  try {
-    await database.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-})();
+// (async () => {
+//   try {
+//     await database.authenticate();
+//     console.log('Connection has been established successfully.');
+//   } catch (error) {
+//     console.error('Unable to connect to the database:', error);
+//   }
+// })();
 
 const db = {};
 db.database = database;
@@ -24,8 +24,7 @@ db.user = new UserModel(database).getUserTable();
 class Mysql {
   constructor() {
     this.db = db;
-    database.sync({});
   }
 }
 
-module.exports = Mysql;
+module.exports = { database, Mysql };

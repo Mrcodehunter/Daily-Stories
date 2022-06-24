@@ -5,7 +5,7 @@ const tokenHandler = require('../utils/tokenHandler');
 
 const verifyToken = catchAsync(async (req, res, next) => {
   if (!req.body.token) return next(new AppError('No token provided!', 403));
-  const data = tokenHandler.verifyToken(req.body.token);
+  const data = await tokenHandler.verifyToken(req.body.token);
 
   req.body.userId = data.id;
   req.body.author = data.name;

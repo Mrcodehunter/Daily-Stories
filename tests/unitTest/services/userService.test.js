@@ -1,59 +1,67 @@
 const { userServer, mysqlObject } = require('../../../database/driver');
-const { users } = require('../../../data/users');
-// const { mockRequest, mockRespone } = require('jest-mock-req-res');
-// jest.useFakeTimers();
-afterEach(() => {
-  jest.clearAllMocks();
-});
+const { usersOutput, usersInput } = require('../../../data/users');
+
 describe('testing user service class: ', () => {
   test('create a new user', async () => {
-    const body = { name: users[0].name, email: users[0].email, password: 1234 };
-    jest.spyOn(mysqlObject.db.user, 'create').mockImplementation((body) => {
-      const newUser = {
-        id: 1,
-        name: 'user1',
-        email: 'user1@gmail.com',
-        password:
-          '$2a$08$YyAd2CsR5ogxBugjzxhS9ekUCR6V2anBbqjG3vxn.J/mvUiwAnXvm',
-        updatedAt: '2022-06-15T09:45:18.145Z',
-        createdAt: '2022-06-15T09:45:18.145Z',
-        token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InVzZXIxIiwiaWF0IjoxNjU1Mjg2MzE4LCJleHAiOjE2NTYxNTAzMTh9.24RBe_z7g7mzGAOYgmrDwdR6uq9xIGZho4Y20NTvGts',
-      };
-      return newUser;
-    });
-    const data = await userServer.createUser(users[0]);
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.spyOn(mysqlObject.db.user, 'create').mockReturnValue(usersOutput[0]);
+    const data = await userServer.createUser(usersInput[0]);
     expect(data).toBeTruthy();
-    expect(data).toEqual(users[0]);
+    expect(mysqlObject.db.user.create).toHaveBeenCalledTimes(1);
+    expect(data).toEqual(usersOutput[0].dataValues);
   });
 
   test('get all users: ', async () => {
-    jest.spyOn(mysqlObject.db.user, 'findAll').mockReturnValue(users);
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.spyOn(mysqlObject.db.user, 'findAll').mockReturnValue(usersOutput);
     const data = await userServer.getAllUser();
+    const testData = usersOutput.map(function (item) {
+      return item.dataValues;
+    });
     expect(data).toBeTruthy();
+    expect(mysqlObject.db.user.findAll).toHaveBeenCalledTimes(1);
+    expect(data).toEqual(testData);
   });
 
   test('get user with id 1: ', async () => {
-    jest.spyOn(mysqlObject.db.user, 'findOne').mockReturnValue(users[0]);
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    jest.spyOn(mysqlObject.db.user, 'findOne').mockReturnValue(usersOutput[0]);
     const data = await userServer.getUser(1);
     expect(data).toBeTruthy();
+    expect(mysqlObject.db.user.findOne).toHaveBeenCalledTimes(1);
+    expect(data).toEqual(usersOutput[0].dataValues);
   });
 
   test('update user with id 1: ', async () => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
     jest.spyOn(mysqlObject.db.user, 'update').mockImplementation((body, id) => {
       const data = [1];
       return data;
     });
-    const data = await userServer.updateUser(users[0], 1);
+    const data = await userServer.updateUser(usersInput[0], 1);
     expect(data).toBeTruthy();
+    expect(mysqlObject.db.user.update).toHaveBeenCalledTimes(1);
+    expect(data).toEqual([1]);
   });
 
   test('delete user with id 1: ', async () => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
     jest.spyOn(mysqlObject.db.user, 'destroy').mockImplementation((id) => {
       const data = [1];
       return data;
     });
     const data = await userServer.deleteUser(1);
     expect(data).toBeTruthy();
+    expect(data).toBeTruthy();
+    expect(mysqlObject.db.user.destroy).toHaveBeenCalledTimes(1);
+    expect(data).toEqual([1]);
   });
 });
+// test('test TRashfiq', () => {
+//   expect(2).toBe(2);
+// });

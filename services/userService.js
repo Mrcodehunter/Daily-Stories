@@ -13,19 +13,27 @@ class UserService {
     };
 
     const data = await this.userTable.create(newUser);
-
-    return data;
+    //console.log(data.dataValues);
+    return data.dataValues;
   };
 
   getAllUser = async () => {
-    const users = await this.userTable.findAll();
+    const data = await this.userTable.findAll();
+
+    //const users = { ...data[0].dataValues };
+    //console.log(data);
+
+    var users = data.map(function (item) {
+      return item.dataValues;
+    });
 
     return users;
   };
 
   getUser = async (id) => {
     const user = await this.userTable.findOne({ where: { id } });
-    return user;
+    //console.log(user.dataValues);
+    return user.dataValues;
   };
 
   updateUser = async (body, id) => {
@@ -37,6 +45,7 @@ class UserService {
     const user = await this.userTable.update(newUser, {
       where: { id },
     });
+    //console.log(user);
     return user;
   };
 
@@ -44,7 +53,7 @@ class UserService {
     const user = await this.userTable.destroy({
       where: { id },
     });
-
+    //console.log(user);
     return user;
   };
 }
