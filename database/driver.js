@@ -1,4 +1,4 @@
-const Mysql = require('./mysql');
+const { Mysql } = require('./mysql');
 const StoryService = require('../services/storyService');
 const UserService = require('../services/userService');
 

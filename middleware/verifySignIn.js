@@ -14,6 +14,6 @@ exports.verifySignin = catchAsync(async (req, res, next) => {
     return next(new AppError('Invalid username or password!', 400));
   return res.status(201).send({
     status: 'success',
-    token: tokenHandler.createToken(user.id, user.name),
+    token: await tokenHandler.createToken(user.id, user.name),
   });
 });

@@ -5,21 +5,29 @@ class StoryService {
 
   createStory = async (newData) => {
     const newStory = await this.storyTable.create(newData);
-    return newStory;
+    //console.log(newStory);
+    return newStory.dataValues;
   };
 
   getAllStory = async () => {
-    const stories = await this.storyTable.findAll();
+    const data = await this.storyTable.findAll();
+    //console.log(data);
+    var stories = data.map(function (item) {
+      return item.dataValues;
+    });
+    //console.log(stories);
     return stories;
   };
 
   getStory = async (id) => {
     const story = await this.storyTable.findOne({ where: { id } });
-    return story;
+    //console.log(story);
+    return story.dataValues;
   };
 
   updateStory = async (body, id) => {
     const story = await this.storyTable.update(body, { where: { id } });
+    //console.log(story);
     return story;
   };
 
@@ -27,6 +35,7 @@ class StoryService {
     const story = await this.storyTable.destroy({
       where: { id },
     });
+    //console.log(story);
     return story;
   };
 }

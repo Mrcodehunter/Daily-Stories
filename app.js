@@ -8,7 +8,8 @@ const globalErrorHandler = require('./controllers/globalErrorHandler');
 const storyRoute = require('./routes/storyRoutes');
 const userRoute = require('./routes/userRoutes');
 require('dotenv').config();
-
+const { syncDatabase } = require('./database/dbConnect');
+syncDatabase();
 app.use('/api/v1', storyRoute);
 app.use('/api/v1', userRoute);
 app.all('/*', (req, res, next) => {
